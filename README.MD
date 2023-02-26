@@ -1,8 +1,9 @@
 Description:
 
 The infrastructure include 3 three components:
-    1. VPC (Amazon Virtual Private Cloud)
-    2. EKS (Amazon Elastic Kubernetes Service) which have 2 Node EKS Managed Group , On-Demand and Spot-Instance  to optimized billing cost .
+
+    1. VPC (Amazon Virtual Private Cloud) <br />
+    2. EKS (Amazon Elastic Kubernetes Service) which have 2 Node EKS Managed Group , On-Demand and Spot-Instance  to optimized billing cost . <br />
     3. Amazon Aurora RDS with Multi-Region AZ replication for Autoscaling and High Availability
 
 
