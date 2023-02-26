@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: forecast-api
+  namespace: production
+spec:
+  selector:
+    matchLabels:
+      app: forecast-api
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: forecast-api
+    spec:
+      terminationGracePeriodSeconds: 60
+      containers:
+      - name: forecast-api
+        lifecycle:
+          preStop:
+            exec:
+              command:
+              - sleep
+              - "10"
+        image: forecast-api:${IMAGE_TAG}
+        env:
+        - name: API_KEY
+          value: "xxxxxxxxxx"
+        resources:
+          limits:
+            cpu: 4
+            memory: 4024Mi
+          requests:
+            cpu: 0.1
+            memory: 512Mi
+        ports:
+        - name: api
+          containerPort: 5000
+        livenessProbe:
+          httpGet:
+            path: /liveness
+            port: 5000
+          initialDelaySeconds: 60
+          timeoutSeconds: 45
+          periodSeconds: 3
+        readinessProbe:
+          httpGet:
+            path: readiness
+            port: 5000
+          initialDelaySeconds: 60
+          timeoutSeconds: 45
+          periodSeconds: 3
+      restartPolicy: Always
